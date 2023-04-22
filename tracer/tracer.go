@@ -16,5 +16,5 @@ package tracer
 
 type Tracer interface {
 	// StartSpan starts a new span.
-	StartSpan(name string) Span
+	StartSpan(name string) SpanContext
 }
