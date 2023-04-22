@@ -19,10 +19,12 @@ import (
 
 	"github.com/cybergarage/go-tracing/tracer"
 
+	"github.com/opentracing/opentracing-go"
 	ot "github.com/opentracing/opentracing-go"
 )
 
 type span struct {
+	ot.Tracer
 	ot.Span
 	ctx context.Context
 }
@@ -44,5 +46,13 @@ func (s *span) Context() context.Context {
 
 // StartSpan starts a new child span.
 func (s *span) StartSpan(name string) tracer.Span {
-	return nil
+	childSpan := s.Tracer.StartSpan(
+		name,
+		opentracing.ChildOf(s.Span.Context()),
+	)
+	return &span{
+		Tracer: s.Tracer,
+		Span:   childSpan,
+		ctx:    s.ctx,
+	}
 }
