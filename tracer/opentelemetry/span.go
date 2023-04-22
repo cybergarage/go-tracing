@@ -18,10 +18,13 @@ import (
 	"context"
 
 	"github.com/cybergarage/go-tracing/tracer"
+	otel "go.opentelemetry.io/otel"
+	oteltracer "go.opentelemetry.io/otel/trace"
 )
 
 type span struct {
-	// otel.Span
+	name string
+	oteltracer.Span
 	ctx context.Context
 }
 
@@ -31,7 +34,7 @@ func (s *span) SetTag(key string, value any) {
 
 // Finish marks the end of the span.
 func (s *span) Finish() {
-	// s.Span.End()
+	s.Span.End()
 }
 
 // Context returns the span's context.
@@ -41,5 +44,10 @@ func (s *span) Context() context.Context {
 
 // StartSpan starts a new child span.
 func (s *span) StartSpan(name string) tracer.Span {
-	return nil
+	ctx, ots := otel.Tracer(s.name).Start(s.ctx, name)
+	return &span{
+		name: name,
+		Span: ots,
+		ctx:  ctx,
+	}
 }
