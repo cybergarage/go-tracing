@@ -45,14 +45,16 @@ func (s *span) Context() context.Context {
 }
 
 // StartSpan starts a new child span.
-func (s *span) StartSpan(name string) tracer.Span {
+func (s *span) StartSpan(name string) tracer.SpanContext {
 	childSpan := s.Tracer.StartSpan(
 		name,
 		opentracing.ChildOf(s.Span.Context()),
 	)
-	return &span{
-		Tracer: s.Tracer,
-		Span:   childSpan,
-		ctx:    s.ctx,
+	return &spanContext{
+		span: &span{
+			Tracer: s.Tracer,
+			Span:   childSpan,
+			ctx:    s.ctx,
+		},
 	}
 }
