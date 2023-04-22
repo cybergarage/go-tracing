@@ -31,7 +31,7 @@ type span struct {
 
 // SetTag sets a tag on the span.
 func (s *span) SetTag(key string, value any) {
-	s.Span.SetTag(key, value)
+		s.Span.SetTag(key, value)
 }
 
 // Finish marks the end of the span.
