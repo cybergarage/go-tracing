@@ -17,6 +17,8 @@ package opentracing
 import (
 	"context"
 
+	"github.com/cybergarage/go-tracing/tracer"
+
 	ot "github.com/opentracing/opentracing-go"
 )
 
@@ -38,4 +40,9 @@ func (s *span) Finish() {
 // Context returns the span's context.
 func (s *span) Context() context.Context {
 	return s.ctx
+}
+
+// StartSpan starts a new child span.
+func (s *span) StartSpan(name string) tracer.Span {
+	return nil
 }
