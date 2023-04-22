@@ -16,8 +16,10 @@ package opentelemetry
 
 import (
 	"testing"
+
+	"github.com/cybergarage/go-tracing/tracer"
 )
 
-func TestTracer(_ *testing.T) {
-	// tracer.TestTracer(t, New())
+func TestTracer(t *testing.T) {
+	tracer.TestTracer(t, NewWith("test"))
 }
