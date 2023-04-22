@@ -31,12 +31,14 @@ func NewWith(name string) tracer.Tracer {
 	}
 }
 
-func (ot *otracer) StartSpan(name string) tracer.Span {
+func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	ctx := context.Background()
 	ctx, s := otel.Tracer(ot.name).Start(ctx, name)
-	return &span{
-		name: ot.name,
-		Span: s,
-		ctx:  ctx,
+	return &spanContext{
+		span: &span{
+			name: ot.name,
+			Span: s,
+			ctx:  ctx,
+		},
 	}
 }
