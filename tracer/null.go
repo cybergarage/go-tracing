@@ -18,7 +18,8 @@ import (
 	"context"
 )
 
-var constNullTracer = nullTacer{}
+// NullTracer is a null tracing tracer.
+var NullTracer = &nullTacer{}
 var constNullSpan = nullSpan{}
 var constNullSpanContext = nullSpanCotext{}
 
@@ -31,8 +32,9 @@ type nullSpan struct {
 type nullSpanCotext struct {
 }
 
-func NullTracer() Tracer {
-	return &constNullTracer
+// NewNullTracer returns a new null tracing tracer.
+func NewNullTracer() Tracer {
+	return NullTracer
 }
 
 // StartSpan starts a new span.
