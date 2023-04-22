@@ -18,27 +18,27 @@ MODULE_ROOT=github.com/cybergarage/go-tracing
 
 PKG_NAME=tracer
 PKG_ID=${MODULE_ROOT}/${PKG_NAME}
-PKG_SRC_DIR=${PKG_NAME}
-PKG_SRCS=\
-        ${PKG_SRC_DIR}
-PKGS=\
-	${PKG_ID}
+PKG_ROOT=${PKG_NAME}
+PKGS=${PKG_ID}
 
-.PHONY: format vet lint clean
+.PHONY: format vet lint clean version
 
 all: test
 
+version:
+	@pushd ${PKG_ROOT} && ./version.gen > version.go && popd
+
 format:
-	gofmt -w ${PKG_SRC_DIR}
+	gofmt -w ${PKG_ROOT}
 
 vet: format
 	go vet ${PKG_ID}
 
 lint: vet
-	golangci-lint run ${PKG_SRCS}
+	golangci-lint run ${PKG_ROOT}
 
 test: lint
-	go test -v -cover -timeout 60s ${PKGS}
+	go test -v -cover -timeout 60s ${PKGS}/...
 
 clean:
 	go clean -i ${PKGS}
