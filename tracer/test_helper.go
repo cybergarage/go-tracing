@@ -18,6 +18,11 @@ import (
 	"testing"
 )
 
-func TestTracer(t *testing.T, _ Tracer) {
+func TestTracer(t *testing.T, tracer Tracer) {
 	t.Helper()
+
+	s := tracer.StartSpan("root")
+	cs := s.StartSpan("child")
+	cs.Finish()
+	s.Finish()
 }
