@@ -30,10 +30,12 @@ func New() tracer.Tracer {
 }
 
 // StartSpan starts a new span.
-func (ot *otracer) StartSpan(name string) tracer.Span {
-	return &span{
-		Tracer: ot.Tracer,
-		Span:   ot.Tracer.StartSpan(name),
-		ctx:    nil,
+func (ot *otracer) StartSpan(name string) tracer.SpanContext {
+	return &spanContext{
+		span: &span{
+			Tracer: ot.Tracer,
+			Span:   ot.Tracer.StartSpan(name),
+			ctx:    nil,
+		},
 	}
 }
