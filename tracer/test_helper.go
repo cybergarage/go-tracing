@@ -22,7 +22,7 @@ func TestTracer(t *testing.T, tracer Tracer) {
 	t.Helper()
 
 	s := tracer.StartSpan("root")
-	cs := s.StartSpan("child")
-	cs.Finish()
-	s.Finish()
+	cs := s.Span().StartSpan("child")
+	cs.Span().Finish()
+	s.Span().Finish()
 }
