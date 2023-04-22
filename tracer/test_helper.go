@@ -14,9 +14,10 @@
 
 package tracer
 
-type tracer struct {
-}
+import (
+	"testing"
+)
 
-func New() Tracer {
-	return &tracer{}
+func TestTracer(t *testing.T, _ Tracer) {
+	t.Helper()
 }
