@@ -19,7 +19,10 @@ import (
 )
 
 type Span interface {
+	// SetTag sets a tag on the span.
 	SetTag(key string, value any)
+	// Finish marks the end of the span.
 	Finish()
+	// Context returns the span's context.
 	Context() context.Context
 }
