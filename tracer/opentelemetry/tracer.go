@@ -15,12 +15,27 @@
 package opentelemetry
 
 import (
+	"context"
+
 	"github.com/cybergarage/go-tracing/tracer"
+	otel "go.opentelemetry.io/otel/trace"
 )
 
-type t struct {
+type otracer struct {
+	otel.Tracer
 }
 
 func New() tracer.Tracer {
-	return &t{}
+	return &otracer{
+		Tracer: nil,
+	}
+}
+
+func (ot *otracer) StartSpan(name string) tracer.Span {
+	ctx := context.Background()
+	ctx, _ = ot.Tracer.Start(ctx, name)
+	return &span{
+		// Span:    s,
+		ctx: ctx,
+	}
 }
