@@ -12,12 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package tracer
+package opentelemetry
 
 import (
 	"testing"
+
+	"github.com/cybergarage/go-tracing/tracer"
 )
 
 func TestTracer(_ *testing.T) {
-	New()
+	tracer.TestTracer(t, New())
 }
