@@ -16,6 +16,8 @@ package opentelemetry
 
 import (
 	"context"
+
+	"github.com/cybergarage/go-tracing/tracer"
 )
 
 type span struct {
@@ -35,4 +37,9 @@ func (s *span) Finish() {
 // Context returns the span's context.
 func (s *span) Context() context.Context {
 	return s.ctx
+}
+
+// StartSpan starts a new child span.
+func (s *span) StartSpan(name string) tracer.Span {
+	return nil
 }
