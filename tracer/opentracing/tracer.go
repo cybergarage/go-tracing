@@ -29,6 +29,7 @@ func New() tracer.Tracer {
 	}
 }
 
+// StartSpan starts a new span.
 func (ot *otracer) StartSpan(name string) tracer.Span {
 	return &span{
 		Span: ot.Tracer.StartSpan(name),
