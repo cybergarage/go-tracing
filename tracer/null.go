@@ -58,6 +58,16 @@ func (nt *nullTacer) StartSpan(_ string) SpanContext {
 	return &constNullSpanContext
 }
 
+// Start starts a tracer.
+func (nt *nullTacer) Start() error {
+	return nil
+}
+
+// Stop stops a tracer.
+func (nt *nullTacer) Stop() error {
+	return nil
+}
+
 // SetTag sets a tag on the span.
 func (s *nullSpan) SetTag(_ string, _ any) {
 }
