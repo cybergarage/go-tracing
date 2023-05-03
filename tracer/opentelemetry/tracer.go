@@ -22,39 +22,29 @@ import (
 )
 
 type otracer struct {
-	name string
+	serviceName string
+	endpoint    string
 }
 
-func New() tracer.Tracer {
-	return NewWith("")
-}
-
-func NewWith(name string) tracer.Tracer {
+func NewTracer() tracer.Tracer {
 	return &otracer{
-		name: name,
+		serviceName: "",
 	}
 }
 
 // SetServiceName sets a service name.
 func (ot *otracer) SetServiceName(name string) {
-	ot.name = name
-}
-
-// SetAgentHost sets an agent host.
-func (ot *otracer) SetAgentHost(_ string) {
-}
-
-// SetAgentPort sets an agent port.
-func (ot *otracer) SetAgentPort(_ int) {
+	ot.serviceName = name
 }
 
 // SetEndpoint sets an endpoint.
-func (ot *otracer) SetEndpoint(_ string) {
+func (ot *otracer) SetEndpoint(endpoint string) {
+	ot.endpoint = endpoint
 }
 
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	ctx := context.Background()
-	ctx, s := otel.Tracer(ot.name).Start(ctx, name)
+	ctx, s := otel.Tracer(ot.serviceName).Start(ctx, name)
 	return &spanContext{
 		span: &span{
 			name: name,

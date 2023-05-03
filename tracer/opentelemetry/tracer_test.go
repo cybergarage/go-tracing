@@ -21,5 +21,5 @@ import (
 )
 
 func TestTracer(t *testing.T) {
-	tracer.TestTracer(t, New())
+	tracer.TestTracer(t, NewTracer())
 }
