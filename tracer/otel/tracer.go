@@ -27,7 +27,7 @@ import (
 )
 
 const (
-	defaultServiceName = "go-tracing"
+	defaultServiceName = "go-opentelemetry"
 	defaultEndpoint    = "http://localhost:14268/api/traces"
 )
 
