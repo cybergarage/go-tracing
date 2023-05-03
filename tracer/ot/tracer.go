@@ -24,7 +24,7 @@ import (
 )
 
 const (
-	defaultServiceName = "go-tracing"
+	defaultServiceName = "go-opentracing"
 	defaultEndpoint    = "localhost:6831"
 )
 
