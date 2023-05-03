@@ -45,6 +45,14 @@ func (nt *nullTacer) SetServiceName(_ string) {
 func (nt *nullTacer) SetEndpoint(_ string) {
 }
 
+// SetAgentHost sets an agent host.
+func (nt *nullTacer) SetAgentHost(_ string) {
+}
+
+// SetAgentPort sets an agent port.
+func (nt *nullTacer) SetAgentPort(_ int) {
+}
+
 // StartSpan starts a new span.
 func (nt *nullTacer) StartSpan(_ string) SpanContext {
 	return &constNullSpanContext

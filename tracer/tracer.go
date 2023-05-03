@@ -17,6 +17,10 @@ package tracer
 type Tracer interface {
 	// SetServiceName sets a service name.
 	SetServiceName(name string)
+	// SetAgentHost sets an agent host.
+	SetAgentHost(host string)
+	// SetAgentPort sets an agent port.
+	SetAgentPort(port int)
 	// SetEndpoint sets an endpoint.
 	SetEndpoint(endpoint string)
 	// StartSpan starts a new span.

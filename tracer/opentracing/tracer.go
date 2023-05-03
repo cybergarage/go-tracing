@@ -33,6 +33,14 @@ func New() tracer.Tracer {
 func (ot *otracer) SetServiceName(_ string) {
 }
 
+// SetAgentHost sets an agent host.
+func (ot *otracer) SetAgentHost(_ string) {
+}
+
+// SetAgentPort sets an agent port.
+func (ot *otracer) SetAgentPort(_ int) {
+}
+
 // SetEndpoint sets an endpoint.
 func (ot *otracer) SetEndpoint(_ string) {
 }
