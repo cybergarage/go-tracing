@@ -23,6 +23,11 @@ import (
 	"github.com/cybergarage/go-tracing/tracer"
 )
 
+const (
+	defaultServiceName = "go-tracing"
+	defaultEndpoint    = "localhost:6831"
+)
+
 type otracer struct {
 	io.Closer
 	serviceName string
@@ -32,8 +37,8 @@ type otracer struct {
 func NewTracer() tracer.Tracer {
 	return &otracer{
 		Closer:      nil,
-		serviceName: "",
-		endpoint:    "",
+		serviceName: defaultServiceName,
+		endpoint:    defaultEndpoint,
 	}
 }
 
