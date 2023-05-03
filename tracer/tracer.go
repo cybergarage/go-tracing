@@ -21,8 +21,8 @@ type Tracer interface {
 	SetAgentHost(host string)
 	// SetAgentPort sets an agent port.
 	SetAgentPort(port int)
-	// SetAgentEndpoint sets an endpoint.
-	SetAgentEndpoint(endpoint string)
+	// SetEndpoint sets an endpoint.
+	SetEndpoint(endpoint string)
 	// StartSpan starts a new span.
 	StartSpan(name string) SpanContext
 	// Start starts a tracer.
