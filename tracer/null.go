@@ -41,6 +41,10 @@ func NewNullTracer() Tracer {
 func (nt *nullTacer) SetServiceName(_ string) {
 }
 
+// SetEndpoint sets an endpoint.
+func (nt *nullTacer) SetEndpoint(_ string) {
+}
+
 // StartSpan starts a new span.
 func (nt *nullTacer) StartSpan(_ string) SpanContext {
 	return &constNullSpanContext
