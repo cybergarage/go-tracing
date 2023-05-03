@@ -1,6 +1,6 @@
-2023-04-22 The go-tracing Authors <skonno@cybergarage.org>
-	* v0.8.1
-    * Add NullTracer
+2023-05-04 The go-tracing Authors <skonno@cybergarage.org>
+	* v1.0.0
+    * Fix Tracer interface
 
 2023-04-22 The go-tracing Authors <skonno@cybergarage.org>
 	* v0.8.0
