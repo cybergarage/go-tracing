@@ -48,8 +48,8 @@ func (ot *otracer) SetAgentHost(_ string) {
 func (ot *otracer) SetAgentPort(_ int) {
 }
 
-// SetAgentEndpoint sets an endpoint.
-func (ot *otracer) SetAgentEndpoint(_ string) {
+// SetEndpoint sets an endpoint.
+func (ot *otracer) SetEndpoint(_ string) {
 }
 
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
@@ -57,7 +57,7 @@ func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	ctx, s := otel.Tracer(ot.name).Start(ctx, name)
 	return &spanContext{
 		span: &span{
-			name: ot.name,
+			name: name,
 			Span: s,
 			ctx:  ctx,
 		},
