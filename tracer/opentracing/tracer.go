@@ -29,7 +29,7 @@ type otracer struct {
 	endpoint    string
 }
 
-func New() tracer.Tracer {
+func NewTracer() tracer.Tracer {
 	return &otracer{
 		Closer:      nil,
 		serviceName: "",
