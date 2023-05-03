@@ -15,6 +15,8 @@
 package tracer
 
 type Tracer interface {
+	// SetServiceName sets a service name.
+	SetServiceName(name string)
 	// StartSpan starts a new span.
 	StartSpan(name string) SpanContext
 }

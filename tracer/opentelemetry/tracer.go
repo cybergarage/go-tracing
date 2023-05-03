@@ -31,6 +31,10 @@ func NewWith(name string) tracer.Tracer {
 	}
 }
 
+// SetServiceName sets a service name.
+func (ot *otracer) SetServiceName(_ string) {
+}
+
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	ctx := context.Background()
 	ctx, s := otel.Tracer(ot.name).Start(ctx, name)
