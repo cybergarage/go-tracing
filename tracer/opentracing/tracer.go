@@ -15,9 +15,12 @@
 package opentracing
 
 import (
+	"fmt"
 	"io"
+	"net/url"
 
 	opentracing "github.com/opentracing/opentracing-go"
+	"github.com/uber/jaeger-client-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"
 
 	"github.com/cybergarage/go-tracing/tracer"
@@ -25,13 +28,18 @@ import (
 
 type otracer struct {
 	io.Closer
-	serviceName
+	serviceName string
+	endpoint    string
+	host        string
+	port        int
 }
 
 func New() tracer.Tracer {
 	return &otracer{
 		Closer:      nil,
 		serviceName: "",
+		host:        "",
+		port:        0,
 	}
 }
 
@@ -41,15 +49,18 @@ func (ot *otracer) SetServiceName(name string) {
 }
 
 // SetAgentHost sets an agent host.
-func (ot *otracer) SetAgentHost(_ string) {
+func (ot *otracer) SetAgentHost(host string) {
+	ot.host = host
 }
 
 // SetAgentPort sets an agent port.
-func (ot *otracer) SetAgentPort(_ int) {
+func (ot *otracer) SetAgentPort(port int) {
+	ot.port = port
 }
 
 // SetEndpoint sets an endpoint.
-func (ot *otracer) SetEndpoint(_ string) {
+func (ot *otracer) SetEndpoint(endpoint string) {
+	ot.endpoint = endpoint
 }
 
 // StartSpan starts a new span.
@@ -75,13 +86,32 @@ func (ot *otracer) Start() error {
 		cfg.ServiceName = ot.serviceName
 	}
 
+	if ot.endpoint != "" {
+		u, err := url.ParseRequestURI(ot.endpoint)
+		if err != nil {
+			return fmt.Errorf("invalid endpoint: %w", err)
+		}
+		cfg.Reporter.CollectorEndpoint = u.String()
+	} else {
+		host := jaeger.DefaultUDPSpanServerHost
+		if ot.host != "" {
+			host = ot.host
+		}
+		port := jaeger.DefaultUDPSpanServerPort
+		if ot.port != 0 {
+			port = ot.port
+		}
+		cfg.Reporter.CollectorEndpoint = fmt.Sprintf("%s:%d", host, port)
+	}
+
 	tracer, closer, err := cfg.NewTracer()
 	if err != nil {
 		return err
 	}
-	defer closer.Close()
 
+	ot.Closer = closer
 	opentracing.SetGlobalTracer(tracer)
+
 	return nil
 }
 
