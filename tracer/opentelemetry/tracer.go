@@ -16,19 +16,27 @@ package opentelemetry
 
 import (
 	"context"
+	"time"
 
 	"github.com/cybergarage/go-tracing/tracer"
 	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/sdk/resource"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
 )
 
 type otracer struct {
 	serviceName string
 	endpoint    string
+	tp          *tracesdk.TracerProvider
 }
 
 func NewTracer() tracer.Tracer {
 	return &otracer{
 		serviceName: "",
+		endpoint:    "",
+		tp:          nil,
 	}
 }
 
@@ -56,10 +64,33 @@ func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 
 // Start starts a tracer.
 func (ot *otracer) Start() error {
+	exp, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(ot.endpoint)))
+	if err != nil {
+		return err
+	}
+	ot.tp = tracesdk.NewTracerProvider(
+		// Always be sure to batch in production.
+		tracesdk.WithBatcher(exp),
+		// Record information about this application in a Resource.
+		tracesdk.WithResource(resource.NewWithAttributes(
+			semconv.SchemaURL,
+			semconv.ServiceName(ot.serviceName),
+		)),
+	)
+	otel.SetTracerProvider(ot.tp)
 	return nil
 }
 
 // Stop stops a tracer.
 func (ot *otracer) Stop() error {
+	if ot.tp == nil {
+		return nil
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	defer cancel()
+	if err := ot.tp.Shutdown(ctx); err != nil {
+		return err
+	}
+	ot.tp = nil
 	return nil
 }
