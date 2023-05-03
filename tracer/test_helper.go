@@ -33,7 +33,7 @@ func TestTracer(t *testing.T, tracer Tracer) {
 		}
 	}()
 
-	s := tracer.StartSpan("root")
+	s := tracer.StartSpan("parent")
 	cs := s.Span().StartSpan("child")
 	cs.Span().Finish()
 	s.Span().Finish()
