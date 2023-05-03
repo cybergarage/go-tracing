@@ -21,6 +21,18 @@ import (
 func TestTracer(t *testing.T, tracer Tracer) {
 	t.Helper()
 
+	if err := tracer.Start(); err != nil {
+		t.Error(err)
+		return
+	}
+
+	defer func() {
+		if err := tracer.Stop(); err != nil {
+			t.Error(err)
+			return
+		}
+	}()
+
 	s := tracer.StartSpan("root")
 	cs := s.Span().StartSpan("child")
 	cs.Span().Finish()
