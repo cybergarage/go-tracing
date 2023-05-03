@@ -48,8 +48,8 @@ func (ot *otracer) SetAgentHost(_ string) {
 func (ot *otracer) SetAgentPort(_ int) {
 }
 
-// SetEndpoint sets an endpoint.
-func (ot *otracer) SetEndpoint(_ string) {
+// SetAgentEndpoint sets an endpoint.
+func (ot *otracer) SetAgentEndpoint(_ string) {
 }
 
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {

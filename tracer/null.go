@@ -41,8 +41,8 @@ func NewNullTracer() Tracer {
 func (nt *nullTacer) SetServiceName(_ string) {
 }
 
-// SetEndpoint sets an endpoint.
-func (nt *nullTacer) SetEndpoint(_ string) {
+// SetAgentEndpoint sets an endpoint.
+func (nt *nullTacer) SetAgentEndpoint(_ string) {
 }
 
 // SetAgentHost sets an agent host.
