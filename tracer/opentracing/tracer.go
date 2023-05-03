@@ -25,14 +25,19 @@ import (
 
 type otracer struct {
 	io.Closer
+	serviceName
 }
 
 func New() tracer.Tracer {
-	return &otracer{}
+	return &otracer{
+		Closer:      nil,
+		serviceName: "",
+	}
 }
 
 // SetServiceName sets a service name.
-func (ot *otracer) SetServiceName(_ string) {
+func (ot *otracer) SetServiceName(name string) {
+	ot.serviceName = name
 }
 
 // SetAgentHost sets an agent host.
@@ -64,6 +69,10 @@ func (ot *otracer) Start() error {
 	cfg, err := jaegercfg.FromEnv()
 	if err != nil {
 		return err
+	}
+
+	if ot.serviceName != "" {
+		cfg.ServiceName = ot.serviceName
 	}
 
 	tracer, closer, err := cfg.NewTracer()
