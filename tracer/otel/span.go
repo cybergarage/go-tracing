@@ -12,31 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package opentracing
+package otel
 
 import (
 	"context"
 
 	"github.com/cybergarage/go-tracing/tracer"
-
-	"github.com/opentracing/opentracing-go"
-	ot "github.com/opentracing/opentracing-go"
+	otel "go.opentelemetry.io/otel"
+	oteltracer "go.opentelemetry.io/otel/trace"
 )
 
 type span struct {
-	ot.Tracer
-	ot.Span
+	name string
+	oteltracer.Span
 	ctx context.Context
 }
 
 // SetTag sets a tag on the span.
 func (s *span) SetTag(key string, value any) {
-	s.Span.SetTag(key, value)
 }
 
 // Finish marks the end of the span.
 func (s *span) Finish() {
-	s.Span.Finish()
+	s.Span.End()
 }
 
 // Context returns the span's context.
@@ -46,15 +44,12 @@ func (s *span) Context() context.Context {
 
 // StartSpan starts a new child span.
 func (s *span) StartSpan(name string) tracer.SpanContext {
-	childSpan := s.Tracer.StartSpan(
-		name,
-		opentracing.ChildOf(s.Span.Context()),
-	)
+	ctx, ots := otel.Tracer(s.name).Start(s.ctx, name)
 	return &spanContext{
 		span: &span{
-			Tracer: s.Tracer,
-			Span:   childSpan,
-			ctx:    s.ctx,
+			name: name,
+			Span: ots,
+			ctx:  ctx,
 		},
 	}
 }
