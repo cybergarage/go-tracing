@@ -12,17 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package opentracing
+package otel
 
 import (
+	"testing"
+
 	"github.com/cybergarage/go-tracing/tracer"
 )
 
-type spanContext struct {
-	*span
-}
-
-// Span returns the context span.
-func (ctx *spanContext) Span() tracer.Span {
-	return ctx.span
+func TestTracer(t *testing.T) {
+	tracer.TestTracer(t, NewTracer())
 }
