@@ -29,6 +29,10 @@ func New() tracer.Tracer {
 	}
 }
 
+// SetServiceName sets a service name.
+func (ot *otracer) SetServiceName(_ string) {
+}
+
 // StartSpan starts a new span.
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	return &spanContext{
