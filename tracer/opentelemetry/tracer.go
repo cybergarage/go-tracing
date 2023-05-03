@@ -63,3 +63,13 @@ func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 		},
 	}
 }
+
+// Start starts a tracer.
+func (ot *otracer) Start() error {
+	return nil
+}
+
+// Stop stops a tracer.
+func (ot *otracer) Stop() error {
+	return nil
+}
