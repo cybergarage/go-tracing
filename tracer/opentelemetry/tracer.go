@@ -25,6 +25,10 @@ type otracer struct {
 	name string
 }
 
+func New() tracer.Tracer {
+	return NewWith("")
+}
+
 func NewWith(name string) tracer.Tracer {
 	return &otracer{
 		name: name,
@@ -32,7 +36,8 @@ func NewWith(name string) tracer.Tracer {
 }
 
 // SetServiceName sets a service name.
-func (ot *otracer) SetServiceName(_ string) {
+func (ot *otracer) SetServiceName(name string) {
+	ot.name = name
 }
 
 // SetEndpoint sets an endpoint.
