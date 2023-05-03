@@ -33,6 +33,10 @@ func New() tracer.Tracer {
 func (ot *otracer) SetServiceName(_ string) {
 }
 
+// SetEndpoint sets an endpoint.
+func (ot *otracer) SetEndpoint(_ string) {
+}
+
 // StartSpan starts a new span.
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	return &spanContext{
