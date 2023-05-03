@@ -26,6 +26,11 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
 )
 
+const (
+	defaultServiceName = "go-tracing"
+	defaultEndpoint    = "http://localhost:14268/api/traces"
+)
+
 type otracer struct {
 	serviceName string
 	endpoint    string
@@ -34,8 +39,8 @@ type otracer struct {
 
 func NewTracer() tracer.Tracer {
 	return &otracer{
-		serviceName: "",
-		endpoint:    "",
+		serviceName: defaultServiceName,
+		endpoint:    defaultEndpoint,
 		tp:          nil,
 	}
 }
@@ -52,7 +57,8 @@ func (ot *otracer) SetEndpoint(endpoint string) {
 
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	ctx := context.Background()
-	ctx, s := otel.Tracer(ot.serviceName).Start(ctx, name)
+	tr := ot.tp.Tracer("root")
+	ctx, s := tr.Start(ctx, name)
 	return &spanContext{
 		span: &span{
 			name: name,
@@ -69,9 +75,7 @@ func (ot *otracer) Start() error {
 		return err
 	}
 	ot.tp = tracesdk.NewTracerProvider(
-		// Always be sure to batch in production.
 		tracesdk.WithBatcher(exp),
-		// Record information about this application in a Resource.
 		tracesdk.WithResource(resource.NewWithAttributes(
 			semconv.SchemaURL,
 			semconv.ServiceName(ot.serviceName),
