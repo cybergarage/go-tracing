@@ -15,18 +15,20 @@
 package opentracing
 
 import (
+	"io"
+
+	opentracing "github.com/opentracing/opentracing-go"
+	jaegercfg "github.com/uber/jaeger-client-go/config"
+
 	"github.com/cybergarage/go-tracing/tracer"
-	ot "github.com/opentracing/opentracing-go"
 )
 
 type otracer struct {
-	ot.Tracer
+	io.Closer
 }
 
 func New() tracer.Tracer {
-	return &otracer{
-		Tracer: ot.GlobalTracer(),
-	}
+	return &otracer{}
 }
 
 // SetServiceName sets a service name.
@@ -47,10 +49,11 @@ func (ot *otracer) SetEndpoint(_ string) {
 
 // StartSpan starts a new span.
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
+	gt := opentracing.GlobalTracer()
 	return &spanContext{
 		span: &span{
-			Tracer: ot.Tracer,
-			Span:   ot.Tracer.StartSpan(name),
+			Tracer: gt,
+			Span:   gt.StartSpan(name),
 			ctx:    nil,
 		},
 	}
@@ -58,10 +61,25 @@ func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 
 // Start starts a tracer.
 func (ot *otracer) Start() error {
+	cfg, err := jaegercfg.FromEnv()
+	if err != nil {
+		return err
+	}
+
+	tracer, closer, err := cfg.NewTracer()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
+
+	opentracing.SetGlobalTracer(tracer)
 	return nil
 }
 
 // Stop stops a tracer.
 func (ot *otracer) Stop() error {
+	if ot.Closer != nil {
+		return ot.Closer.Close()
+	}
 	return nil
 }
