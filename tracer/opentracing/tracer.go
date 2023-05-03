@@ -58,8 +58,8 @@ func (ot *otracer) SetAgentPort(port int) {
 	ot.port = port
 }
 
-// SetEndpoint sets an endpoint.
-func (ot *otracer) SetEndpoint(endpoint string) {
+// SetAgentEndpoint sets an endpoint.
+func (ot *otracer) SetAgentEndpoint(endpoint string) {
 	ot.endpoint = endpoint
 }
 
