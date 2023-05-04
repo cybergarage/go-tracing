@@ -20,7 +20,7 @@ type Tracer interface {
 	// SetEndpoint sets an endpoint.
 	SetEndpoint(endpoint string)
 	// StartSpan starts a new span.
-	StartSpan(name string) SpanContext
+	StartSpan(name string) Context
 	// Start starts a tracer.
 	Start() error
 	// Stop stops a tracer.
