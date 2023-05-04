@@ -55,7 +55,7 @@ func (ot *otracer) SetEndpoint(endpoint string) {
 	ot.endpoint = endpoint
 }
 
-func (ot *otracer) StartSpan(name string) tracer.SpanContext {
+func (ot *otracer) StartSpan(name string) tracer.Context {
 	ctx := context.Background()
 	tr := ot.tp.Tracer("")
 	ctx, ots := tr.Start(ctx, name)

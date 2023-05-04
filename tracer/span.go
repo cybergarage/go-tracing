@@ -26,5 +26,5 @@ type Span interface {
 	// Context returns the span's context.
 	Context() context.Context
 	// StartSpan starts a new child span.
-	StartSpan(name string) SpanContext
+	StartSpan(name string) Context
 }

@@ -20,6 +20,6 @@ import (
 )
 
 // NewSpanContext returns a new SpanContext.
-func NewSpanContextWith(span tracer.Span) tracer.SpanContext {
+func NewSpanContextWith(span tracer.Span) tracer.Context {
 	return common.NewSpanContextWith(span)
 }

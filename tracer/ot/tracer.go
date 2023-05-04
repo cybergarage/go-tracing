@@ -53,7 +53,7 @@ func (ot *otracer) SetEndpoint(endpoint string) {
 }
 
 // StartSpan starts a new span.
-func (ot *otracer) StartSpan(name string) tracer.SpanContext {
+func (ot *otracer) StartSpan(name string) tracer.Context {
 	gt := opentracing.GlobalTracer()
 	span := &span{
 		Tracer: gt,
