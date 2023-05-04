@@ -16,6 +16,10 @@ package tracer
 
 // SpanContext represents a span context.
 type SpanContext interface {
-	// Span returns the context span.
+	// Span returns the current top span on the span stack.
 	Span() Span
+	// StartSpan starts a new child span and pushes it onto the span stack.
+	StartSpan(name string) bool
+	// FinishSpan ends the current top span and pops it from the span stack.
+	FinishSpan() bool
 }

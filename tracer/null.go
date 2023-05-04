@@ -26,12 +26,6 @@ var constNullSpanContext = nullSpanCotext{}
 type nullTacer struct {
 }
 
-type nullSpan struct {
-}
-
-type nullSpanCotext struct {
-}
-
 // NewNullTracer returns a new null tracing tracer.
 func NewNullTracer() Tracer {
 	return NullTracer
@@ -60,6 +54,9 @@ func (nt *nullTacer) Stop() error {
 	return nil
 }
 
+type nullSpan struct {
+}
+
 // SetTag sets a tag on the span.
 func (s *nullSpan) SetTag(_ string, _ any) {
 }
@@ -78,7 +75,20 @@ func (s *nullSpan) StartSpan(_ string) SpanContext {
 	return &constNullSpanContext
 }
 
-// Span returns the context span.
+type nullSpanCotext struct {
+}
+
+// Span returns the current top span on the span stack.
 func (ctx *nullSpanCotext) Span() Span {
 	return &constNullSpan
+}
+
+// StartSpan starts a new child span and pushes it onto the span stack.
+func (ctx *nullSpanCotext) StartSpan(_ string) bool {
+	return true
+}
+
+// FinishSpan ends the current top span and pops it from the span stack.
+func (ctx *nullSpanCotext) FinishSpan() bool {
+	return true
 }
