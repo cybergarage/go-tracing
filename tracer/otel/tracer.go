@@ -58,14 +58,13 @@ func (ot *otracer) SetEndpoint(endpoint string) {
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	ctx := context.Background()
 	tr := ot.tp.Tracer("")
-	ctx, s := tr.Start(ctx, name)
-	return &spanContext{
-		span: &span{
-			name: name,
-			Span: s,
-			ctx:  ctx,
-		},
+	ctx, ots := tr.Start(ctx, name)
+	span := &span{
+		name: name,
+		Span: ots,
+		ctx:  ctx,
 	}
+	return NewSpanContextWith(span)
 }
 
 // Start starts a tracer.
