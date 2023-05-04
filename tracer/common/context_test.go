@@ -1,4 +1,4 @@
-// Copyright (C) 2023 The go-tracing Authors. All rights reserved.
+// Copyright (C) 2022 The go-tracing Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,14 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package ot
+package common
 
 import (
+	"fmt"
+	"testing"
+
 	"github.com/cybergarage/go-tracing/tracer"
-	"github.com/cybergarage/go-tracing/tracer/common"
 )
 
-// NewSpanContext returns a new SpanContext.
-func NewSpanContextWith(span tracer.Span) tracer.SpanContext {
-	return common.NewSpanContextWith(span)
+func TestSpanContext(t *testing.T) {
+	loopCnt := 10
+
+	ctx := NewSpanContextWith(tracer.NullTracer.StartSpan("root").Span())
+
+	for n := 0; n < loopCnt; n++ {
+		name := fmt.Sprintf("span%d", n)
+		if !ctx.StartSpan(name) {
+			t.Errorf("ctx.StartSpan(%v)", name)
+		}
+	}
+
+	for n := 0; n < loopCnt; n++ {
+		name := fmt.Sprintf("span%d", n)
+		if !ctx.FinishSpan() {
+			t.Errorf("ctx.FinishSpan(%v)", name)
+		}
+	}
 }
