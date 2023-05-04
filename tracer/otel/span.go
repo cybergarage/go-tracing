@@ -43,7 +43,7 @@ func (s *span) Context() context.Context {
 }
 
 // StartSpan starts a new child span.
-func (s *span) StartSpan(name string) tracer.SpanContext {
+func (s *span) StartSpan(name string) tracer.Context {
 	ctx, ots := otel.Tracer(s.name).Start(s.ctx, name)
 	span := &span{
 		name: name,

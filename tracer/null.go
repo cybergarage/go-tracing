@@ -40,7 +40,7 @@ func (nt *nullTacer) SetEndpoint(_ string) {
 }
 
 // StartSpan starts a new span.
-func (nt *nullTacer) StartSpan(_ string) SpanContext {
+func (nt *nullTacer) StartSpan(_ string) Context {
 	return &constNullSpanContext
 }
 
@@ -71,7 +71,7 @@ func (s *nullSpan) Context() context.Context {
 }
 
 // StartSpan starts a new child span.
-func (s *nullSpan) StartSpan(_ string) SpanContext {
+func (s *nullSpan) StartSpan(_ string) Context {
 	return &constNullSpanContext
 }
 

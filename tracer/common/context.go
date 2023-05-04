@@ -23,7 +23,7 @@ type spanContext struct {
 }
 
 // SetSpan sets a new root span context.
-func NewSpanContextWith(span tracer.Span) tracer.SpanContext {
+func NewSpanContextWith(span tracer.Span) tracer.Context {
 	ctx := &spanContext{
 		spans: make([]tracer.Span, 0),
 	}
