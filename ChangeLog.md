@@ -1,7 +1,7 @@
 # Changelog
 
 ## v1.1.0 (2023-05-04)
-- Update SpanContext interface
+- Update Context interface
 
 ## v1.0.0 (2023-05-04)
 - Fix Tracer interface
