@@ -52,6 +52,16 @@ func (ot *otracer) SetEndpoint(endpoint string) {
 	ot.endpoint = endpoint
 }
 
+// ServiceName returns the service name.
+func (ot *otracer) ServiceName() string {
+	return ot.serviceName
+}
+
+// Endpoint returns the endpoint.
+func (ot *otracer) Endpoint() string {
+	return ot.endpoint
+}
+
 // StartSpan starts a new span.
 func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	gt := opentracing.GlobalTracer()
