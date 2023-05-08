@@ -98,7 +98,7 @@ func (ot *otracer) Start() error {
 	ot.Closer = closer
 	opentracing.SetGlobalTracer(jtracer)
 
-	log.Infof("%s (%s/%s) started", tracer.PackageName, serviceName, tracer.Version)
+	log.Infof("%s(%s)/%s (%s) started", tracer.PackageName, serviceName, tracer.Version, ot.endpoint)
 
 	return nil
 }
@@ -111,7 +111,7 @@ func (ot *otracer) Stop() error {
 		}
 	}
 
-	log.Infof("%s (%s/%s) terminated", tracer.PackageName, serviceName, tracer.Version)
+	log.Infof("%s(%s)/%s (%s) terminated", tracer.PackageName, serviceName, tracer.Version, ot.endpoint)
 
 	return nil
 }

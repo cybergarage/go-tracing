@@ -94,7 +94,7 @@ func (ot *otracer) Start() error {
 	)
 	otel.SetTracerProvider(ot.tp)
 
-	log.Infof("%s (%s/%s) started", tracer.PackageName, serviceName, tracer.Version)
+	log.Infof("%s(%s)/%s (%s) started", tracer.PackageName, serviceName, tracer.Version, ot.endpoint)
 
 	return nil
 }
@@ -112,7 +112,7 @@ func (ot *otracer) Stop() error {
 	}
 	ot.tp = nil
 
-	log.Infof("%s (%s/%s) terminated", tracer.PackageName, serviceName, tracer.Version)
+	log.Infof("%s(%s)/%s (%s) terminated", tracer.PackageName, serviceName, tracer.Version, ot.endpoint)
 
 	return nil
 }
