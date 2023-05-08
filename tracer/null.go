@@ -39,6 +39,16 @@ func (nt *nullTacer) SetServiceName(_ string) {
 func (nt *nullTacer) SetEndpoint(_ string) {
 }
 
+// ServiceName returns the service name.
+func (nt *nullTacer) ServiceName() string {
+	return ""
+}
+
+// Endpoint returns the endpoint.
+func (nt *nullTacer) Endpoint() string {
+	return ""
+}
+
 // StartSpan starts a new span.
 func (nt *nullTacer) StartSpan(_ string) SpanContext {
 	return &constNullSpanContext
