@@ -18,6 +18,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-tracing/tracer"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/jaeger"
@@ -83,6 +84,7 @@ func (ot *otracer) Start() error {
 	if err != nil {
 		return err
 	}
+
 	ot.tp = tracesdk.NewTracerProvider(
 		tracesdk.WithBatcher(exp),
 		tracesdk.WithResource(resource.NewWithAttributes(
@@ -91,6 +93,9 @@ func (ot *otracer) Start() error {
 		)),
 	)
 	otel.SetTracerProvider(ot.tp)
+
+	log.Infof("%s (%s/%s) started", tracer.PackageName, ot.serviceName, tracer.Version)
+
 	return nil
 }
 
@@ -99,11 +104,15 @@ func (ot *otracer) Stop() error {
 	if ot.tp == nil {
 		return nil
 	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	if err := ot.tp.Shutdown(ctx); err != nil {
 		return err
 	}
 	ot.tp = nil
+
+	log.Infof("%s (%s/%s) terminated", tracer.PackageName, ot.serviceName, tracer.Version)
+
 	return nil
 }
