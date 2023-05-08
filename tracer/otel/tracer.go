@@ -28,8 +28,8 @@ import (
 )
 
 const (
-	defaultServiceName = "go-opentelemetry"
-	defaultEndpoint    = "http://localhost:14268/api/traces"
+	serviceName     = "opentelemetry"
+	defaultEndpoint = "http://localhost:14268/api/traces"
 )
 
 type otracer struct {
@@ -40,7 +40,7 @@ type otracer struct {
 
 func NewTracer() tracer.Tracer {
 	return &otracer{
-		serviceName: defaultServiceName,
+		serviceName: tracer.PackageName,
 		endpoint:    defaultEndpoint,
 		tp:          nil,
 	}
@@ -94,7 +94,7 @@ func (ot *otracer) Start() error {
 	)
 	otel.SetTracerProvider(ot.tp)
 
-	log.Infof("%s (%s/%s) started", tracer.PackageName, ot.serviceName, tracer.Version)
+	log.Infof("%s (%s/%s) started", tracer.PackageName, serviceName, tracer.Version)
 
 	return nil
 }
@@ -112,7 +112,7 @@ func (ot *otracer) Stop() error {
 	}
 	ot.tp = nil
 
-	log.Infof("%s (%s/%s) terminated", tracer.PackageName, ot.serviceName, tracer.Version)
+	log.Infof("%s (%s/%s) terminated", tracer.PackageName, serviceName, tracer.Version)
 
 	return nil
 }
