@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/cybergarage/go-logger v1.3.4 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
