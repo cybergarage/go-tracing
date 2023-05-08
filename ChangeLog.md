@@ -1,6 +1,7 @@
 # Changelog
 
 ## v1.1.3 (2023-05-09)
+- Update Tracer interface
 - Import go-logger
 - Add log messages
 
