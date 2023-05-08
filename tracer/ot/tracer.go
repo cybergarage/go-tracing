@@ -26,8 +26,8 @@ import (
 )
 
 const (
-	defaultServiceName = "go-opentracing"
-	defaultEndpoint    = "localhost:6831"
+	serviceName     = "go-opentracing"
+	defaultEndpoint = "localhost:6831"
 )
 
 type otracer struct {
@@ -39,7 +39,7 @@ type otracer struct {
 func NewTracer() tracer.Tracer {
 	return &otracer{
 		Closer:      nil,
-		serviceName: defaultServiceName,
+		serviceName: tracer.PackageName,
 		endpoint:    defaultEndpoint,
 	}
 }
@@ -98,7 +98,7 @@ func (ot *otracer) Start() error {
 	ot.Closer = closer
 	opentracing.SetGlobalTracer(jtracer)
 
-	log.Infof("%s (%s/%s) started", tracer.PackageName, ot.serviceName, tracer.Version)
+	log.Infof("%s (%s/%s) started", tracer.PackageName, serviceName, tracer.Version)
 
 	return nil
 }
@@ -111,7 +111,7 @@ func (ot *otracer) Stop() error {
 		}
 	}
 
-	log.Infof("%s (%s/%s) terminated", tracer.PackageName, ot.serviceName, tracer.Version)
+	log.Infof("%s (%s/%s) terminated", tracer.PackageName, serviceName, tracer.Version)
 
 	return nil
 }
