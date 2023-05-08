@@ -17,6 +17,8 @@ package ot
 import (
 	"io"
 
+	"github.com/cybergarage/go-logger/log"
+
 	opentracing "github.com/opentracing/opentracing-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"
 
@@ -88,13 +90,15 @@ func (ot *otracer) Start() error {
 		cfg.Reporter.CollectorEndpoint = ot.endpoint
 	}
 
-	tracer, closer, err := cfg.NewTracer()
+	jtracer, closer, err := cfg.NewTracer()
 	if err != nil {
 		return err
 	}
 
 	ot.Closer = closer
-	opentracing.SetGlobalTracer(tracer)
+	opentracing.SetGlobalTracer(jtracer)
+
+	log.Infof("%s (%s/%s) started", tracer.PackageName, ot.serviceName, tracer.Version)
 
 	return nil
 }
@@ -102,7 +106,12 @@ func (ot *otracer) Start() error {
 // Stop stops a tracer.
 func (ot *otracer) Stop() error {
 	if ot.Closer != nil {
-		return ot.Closer.Close()
+		if err := ot.Closer.Close(); err != nil {
+			return err
+		}
 	}
+
+	log.Infof("%s (%s/%s) terminated", tracer.PackageName, ot.serviceName, tracer.Version)
+
 	return nil
 }
