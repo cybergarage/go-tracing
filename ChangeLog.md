@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.1.3 (2023-05-09)
+- Import go-logger
+- Add log messages
+
+## v1.1.2 (2023-05-08)
+- Update Tracer interface to get configurations
+
 ## v1.1.1 (2023-05-08)
 - Update Tracer interface to get configurations
 
