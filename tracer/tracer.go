@@ -19,6 +19,10 @@ type Tracer interface {
 	SetServiceName(name string)
 	// SetEndpoint sets an endpoint.
 	SetEndpoint(endpoint string)
+	// ServiceName returns the service name.
+	ServiceName() string
+	// Endpoint returns the endpoint.
+	Endpoint() string
 	// StartSpan starts a new span.
 	StartSpan(name string) Context
 	// Start starts a tracer.

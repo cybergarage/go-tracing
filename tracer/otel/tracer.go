@@ -55,7 +55,17 @@ func (ot *otracer) SetEndpoint(endpoint string) {
 	ot.endpoint = endpoint
 }
 
-func (ot *otracer) StartSpan(name string) tracer.Context {
+// ServiceName returns the service name.
+func (ot *otracer) ServiceName() string {
+	return ot.serviceName
+}
+
+// Endpoint returns the endpoint.
+func (ot *otracer) Endpoint() string {
+	return ot.endpoint
+}
+
+func (ot *otracer) StartSpan(name string) tracer.SpanContext {
 	ctx := context.Background()
 	tr := ot.tp.Tracer("")
 	ctx, ots := tr.Start(ctx, name)
