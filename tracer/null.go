@@ -20,8 +20,12 @@ import (
 
 // NullTracer is a null tracing tracer.
 var NullTracer = &nullTacer{}
-var constNullSpan = nullSpan{}
-var constNullSpanContext = nullSpanCotext{}
+
+// NullSpan is a null tracing span.
+var NullSpan = nullSpan{}
+
+// NullSpanContext is a null tracing span context.
+var NullSpanContext = nullSpanCotext{}
 
 type nullTacer struct {
 }
@@ -51,7 +55,7 @@ func (nt *nullTacer) Endpoint() string {
 
 // StartSpan starts a new span.
 func (nt *nullTacer) StartSpan(_ string) Context {
-	return &constNullSpanContext
+	return &NullSpanContext
 }
 
 // Start starts a tracer.
@@ -82,7 +86,7 @@ func (s *nullSpan) Context() context.Context {
 
 // StartSpan starts a new child span.
 func (s *nullSpan) StartSpan(_ string) Context {
-	return &constNullSpanContext
+	return &NullSpanContext
 }
 
 type nullSpanCotext struct {
@@ -90,7 +94,7 @@ type nullSpanCotext struct {
 
 // Span returns the current top span on the span stack.
 func (ctx *nullSpanCotext) Span() Span {
-	return &constNullSpan
+	return &NullSpan
 }
 
 // StartSpan starts a new child span and pushes it onto the span stack.
