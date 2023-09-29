@@ -33,6 +33,7 @@ const (
 )
 
 type otracer struct {
+	pkgName     string
 	serviceName string
 	endpoint    string
 	tp          *tracesdk.TracerProvider
@@ -40,10 +41,21 @@ type otracer struct {
 
 func NewTracer() tracer.Tracer {
 	return &otracer{
-		serviceName: tracer.PackageName,
+		pkgName:     tracer.PackageName,
+		serviceName: serviceName,
 		endpoint:    defaultEndpoint,
 		tp:          nil,
 	}
+}
+
+// SetPackageName sets a package name.
+func (ot *otracer) SetPackageName(name string) {
+	ot.pkgName = name
+}
+
+// PackageName returns the package name.
+func (ot *otracer) PackageName() string {
+	return ot.pkgName
 }
 
 // SetServiceName sets a service name.
@@ -66,10 +78,10 @@ func (ot *otracer) Endpoint() string {
 	return ot.endpoint
 }
 
+// StartSpan starts a span.
 func (ot *otracer) StartSpan(name string) tracer.Context {
 	ctx := context.Background()
-	tr := ot.tp.Tracer("")
-	ctx, ots := tr.Start(ctx, name)
+	ctx, ots := ot.tp.Tracer(ot.pkgName).Start(ctx, name)
 	span := &span{
 		name: name,
 		Span: ots,
