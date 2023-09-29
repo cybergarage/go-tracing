@@ -1,6 +1,8 @@
 # Changelog
 
-## v1.1.3 (2023-xx-xx)
+## v1.1.3 (2023-09-30)
+- Updated Tracer interface
+  - Added SetPackageName()
 - Fix minor compile errors
 
 ## v1.1.2 (2023-05-09)
