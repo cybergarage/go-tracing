@@ -15,10 +15,14 @@
 package tracer
 
 type Tracer interface {
+	// SetPackageName sets a package name.
+	SetPackageName(name string)
 	// SetServiceName sets a service name.
 	SetServiceName(name string)
 	// SetEndpoint sets an endpoint.
 	SetEndpoint(endpoint string)
+	// PackageName returns the package name.
+	PackageName() string
 	// ServiceName returns the service name.
 	ServiceName() string
 	// Endpoint returns the endpoint.

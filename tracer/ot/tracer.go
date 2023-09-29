@@ -32,6 +32,7 @@ const (
 
 type otracer struct {
 	io.Closer
+	pkgName     string
 	serviceName string
 	endpoint    string
 }
@@ -42,6 +43,16 @@ func NewTracer() tracer.Tracer {
 		serviceName: tracer.PackageName,
 		endpoint:    defaultEndpoint,
 	}
+}
+
+// SetPackageName sets a package name.
+func (ot *otracer) SetPackageName(name string) {
+	ot.pkgName = name
+}
+
+// PackageName returns the package name.
+func (ot *otracer) PackageName() string {
+	return ot.pkgName
 }
 
 // SetServiceName sets a service name.

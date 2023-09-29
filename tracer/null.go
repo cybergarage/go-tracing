@@ -35,6 +35,15 @@ func NewNullTracer() Tracer {
 	return NullTracer
 }
 
+// SetPackageName sets a package name.
+func (nt *nullTacer) SetPackageName(_ string) {
+}
+
+// PackageName returns the package name.
+func (nt *nullTacer) PackageName() string {
+	return ""
+}
+
 // SetServiceName sets a service name.
 func (nt *nullTacer) SetServiceName(_ string) {
 }
