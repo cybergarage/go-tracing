@@ -27,8 +27,9 @@ all: test
 
 version:
 	@pushd ${PKG_ROOT} && ./version.gen > version.go && popd
+	-git commit ${PKG_ROOT}/version.go -m "Update version"
 
-format:
+format: version
 	gofmt -w ${PKG_ROOT}
 
 vet: format
