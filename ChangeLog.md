@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.4 (2025-01-06)
+- Updated otel package
+
 ## v1.1.3 (2023-09-30)
 - Updated Tracer interface
   - Added SetPackageName()
