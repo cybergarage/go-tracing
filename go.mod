@@ -2,8 +2,6 @@ module github.com/cybergarage/go-tracing
 
 go 1.23
 
-toolchain go1.23.3
-
 require (
 	github.com/cybergarage/go-logger v1.3.8
 	github.com/opentracing/opentracing-go v1.2.0
