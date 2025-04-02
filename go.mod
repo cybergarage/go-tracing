@@ -3,7 +3,7 @@ module github.com/cybergarage/go-tracing
 go 1.23
 
 require (
-	github.com/cybergarage/go-logger v1.3.8
+	github.com/cybergarage/go-logger v1.3.10
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
 	go.opentelemetry.io/otel v1.35.0
@@ -20,6 +20,6 @@ require (
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/otel/metric v1.35.0 // indirect
-	go.uber.org/atomic v1.10.0 // indirect
+	go.uber.org/atomic v1.11.0 // indirect
 	golang.org/x/sys v0.7.0 // indirect
 )
