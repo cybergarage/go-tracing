@@ -1,7 +1,10 @@
 # Changelog
 
+## v1.1.5 (2025-04-02)
+- Updated opentelemetry and jaeger packages
+
 ## v1.1.4 (2025-01-06)
-- Updated otel package
+- Updated opentelemetry package
 
 ## v1.1.3 (2023-09-30)
 - Updated Tracer interface
