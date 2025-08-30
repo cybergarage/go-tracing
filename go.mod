@@ -1,6 +1,10 @@
 module github.com/cybergarage/go-tracing
 
-go 1.25
+<<<<<<< HEAD
+go 1.22
+=======
+go 1.22
+>>>>>>> 1849db0 (Update go.mod)
 
 require (
 	github.com/cybergarage/go-logger v1.3.11
