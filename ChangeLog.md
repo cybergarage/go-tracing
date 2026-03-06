@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1.6 (2026-03-06)
+- Bump Go version to 1.25
+- Update go-logger and OpenTelemetry dependencies
+- Update CI workflow and golangci-lint configuration
+
+## v1.1.6 (2025-04-02)
+- Updated opentelemetry and go-logger packages
+
 ## v1.1.5 (2025-04-02)
 - Updated opentelemetry and jaeger packages
 
