@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.7 (2026-04-07)
+- Update OpenTelemetry dependencies
+
 ## v1.1.6 (2026-03-06)
 - Bump Go version to 1.25
 - Update go-logger and OpenTelemetry dependencies
